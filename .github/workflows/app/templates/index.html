@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD em Memória - Azure</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        input, button { padding: 8px; margin: 4px 0; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f4f4f4; margin: 8px 0; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-radius: 4px; }
+        .delete-btn { background: #dc3545; color: white; border: none; cursor: pointer; border-radius: 3px; }
+        .add-btn { background: #0078d4; color: white; border: none; cursor: pointer; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h2>Cadastro de Registros (Em Memória)</h2>
+    <form action="/adicionar" method="post">
+        <input type="text" name="nome" placeholder="Nome do item" required style="width: 100%;">
+        <input type="text" name="descricao" placeholder="Descrição" style="width: 100%;">
+        <button type="submit" class="add-btn">Salvar Registro</button>
+    </form>
+
+    <h3>Registros:</h3>
+    <ul>
+        {% for item in itens %}
+            <li>
+                <span><strong>{{ item.nome }}</strong>: {{ item.descricao }}</span>
+                <form action="/deletar/{{ item.id }}" method="post" style="margin: 0;">
+                    <button type="submit" class="delete-btn">Excluir</button>
+                </form>
+            </li>
+        {% else %}
+            <li>Nenhum item cadastrado.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
